@@ -13,15 +13,16 @@ class ActivesScreen extends Component {
   };
 
   constructor(props) {
-  super(props);
-  this.onActiveSelect = this.onActiveSelect.bind(this);
-}
+    super(props);
+    this.onActiveSelect = this.onActiveSelect.bind(this);
+  }
 
   componentWillMount() {
     this.props.fetchActivesList(this.props.organization);
   }
 
   onActiveSelect = (name, rank) => {
+    console.log(name, rank);
     this.props.fetchSelectedProfile(this.props.organization, rank);
     this.props.navigation.navigate('SelectedProfile', { title: name });
   }

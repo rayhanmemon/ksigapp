@@ -62,9 +62,9 @@ ActivesStack.navigationOptions = {
 
 export default createBottomTabNavigator(
   {
+    ActivesStack,
     FeedStack,
     EventsStack,
-    ActivesStack,
   },
   {
     tabBarOptions: {

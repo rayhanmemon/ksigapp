@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Container, Content, Header, Card, CardItem, Thumbnail, Body, Text, Left, Right, Button, Image, Icon, Input } from 'native-base';
+import { connect } from 'react-redux';
+import { Container, Content, List, Card, CardItem, Thumbnail, Body, Text, Left, Button, Input, Spinner } from 'native-base';
+
+import { postChanged, sendButtonPressed, fetchFeed } from '../../actions';
 
 class FeedScreen extends Component {
   static navigationOptions = {
@@ -11,9 +14,66 @@ class FeedScreen extends Component {
     headerTintColor: '#fff'
   };
 
-  renderPosts = () => {
+  componentWillMount() {
+    this.props.fetchFeed(this.props.organization);
+  }
+
+
+  onSendButtonPress = () => {
+    const { postContent, firstName, lastName, rank, organization } = this.props;
+    this.props.sendButtonPressed(postContent, firstName, lastName, rank, organization);
+  }
+
+  renderButton = () => {
+    if (this.props.posting) {
+      return (
+        <Spinner />
+      );
+    } else if (this.props.postContent === '') {
+      return;
+    } return (
+      <Button
+        style={styles.sendButton}
+        onPress={() => this.onSendButtonPress()}
+      >
+        <Text style={styles.sendButtonText}>POST</Text>
+      </Button>
+    );
+  }
+
+  renderFeed = () => {
+    if (this.props.loadingList) {
+      return <Spinner />;
+    } else if (this.props.error) {
+      return (<Text>{this.props.error}</Text>);
+    } return (
+      <List
+        enableEmptySections
+        dataArray={this.props.feedData}
+        renderRow={this.renderPost}
+      />
+    );
+  }
+
+  renderPost = (post) => {
+    const { name, postContent, time } = post;
     return (
-      <Text>Working</Text>
+      <Card style={{ flex: 0 }}>
+        <CardItem>
+          <Left>
+            <Thumbnail source={{ uri: 'https://cdn.images.express.co.uk/img/dynamic/4/590x/LeBron-James-has-until-June-29-to-opt-out-of-his-contract-with-the-Cavaliers-978390.jpg?r=1529715616214' }} />
+            <Body>
+              <Text>{name}</Text>
+              <Text note>{time}</Text>
+            </Body>
+          </Left>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Text>{postContent}</Text>
+          </Body>
+        </CardItem>
+      </Card>
     );
   }
 
@@ -22,12 +82,14 @@ class FeedScreen extends Component {
       <Container>
         <Content>
           <View style={styles.messageBoxContainer}>
-            <Input style={styles.messageBox} />
-            <Button style={styles.sendButton}>
-              <Text style={styles.sendButtonText}>POST</Text>
-            </Button>
+            <Input
+              onChangeText={this.props.postChanged.bind(this)}
+              value={this.props.postContent}
+              style={styles.messageBox}
+            />
+            {this.renderButton()}
           </View>
-          {this.renderPosts()}
+          {this.renderFeed()}
         </Content>
       </Container>
     );
@@ -53,7 +115,6 @@ const styles = {
     paddingHorizontal: 5,
   },
   sendButton: {
-    color: 'Blue',
     marginLeft: 10,
     marginRight: 5,
   },
@@ -63,4 +124,12 @@ const styles = {
   }
 };
 
-export default FeedScreen;
+const mapStateToProps = (state) => {
+  const { postContent, posting, loadingList, feedData } = state.feed;
+  const { firstName, lastName, rank, organization } = state.auth;
+  return (
+    { postContent, posting, loadingList, feedData, firstName, lastName, rank, organization }
+  );
+};
+
+export default connect(mapStateToProps, { postChanged, sendButtonPressed, fetchFeed })(FeedScreen);
