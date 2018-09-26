@@ -11,11 +11,13 @@ import {
   chaptersEdited,
   mixersEdited,
   brotherhoodsEdited,
+  goodStandingEdited,
   saveStats
 } from '../actions';
 
 class EditStats extends Component {
 
+/*
   constructor(props) {
     super(props);
 
@@ -29,22 +31,24 @@ class EditStats extends Component {
       selected2: value
     });
   }
+*/
 
   saveButtonPressed(organization, rank) {
     const newStats = {
       position: this.props.position,
+      goodStanding: (this.props.goodStanding === 'true'),
       dues: parseInt(this.props.dues, 10),
       communityService: parseInt(this.props.communityService, 10),
       chapters: parseInt(this.props.chapters, 10),
       mixers: parseInt(this.props.mixers, 10),
       brotherhoods: parseInt(this.props.brotherhoods, 10)
     };
-
+    console.log(newStats);
     this.props.saveStats(organization, rank, newStats);
   }
 
-  renderButton() {
-    const { loading, organization, rank } = this.props;
+  renderButton(rank) {
+    const { loading, organization } = this.props;
     if (loading) {
       return <Spinner />;
     } return (
@@ -69,6 +73,7 @@ class EditStats extends Component {
     const brotherhoodsInitial = this.props.profile.brotherhoods.toString();
 
     const picture = 'https://cdn.images.express.co.uk/img/dynamic/4/590x/LeBron-James-has-until-June-29-to-opt-out-of-his-contract-with-the-Cavaliers-978390.jpg?r=1529715616214';
+    const rank = this.props.profile.rank;
 
     return (
       <Container>
@@ -83,8 +88,8 @@ class EditStats extends Component {
                style={{ width: undefined }}
                placeholder='Standing'
                placeholderStyle={{ color: '#00f' }}
-               selectedValue={this.state.selected2}
-               onValueChange={this.onValueChange2.bind(this)}
+               selectedValue={goodStanding}
+               onValueChange={this.props.goodStandingEdited.bind(this)}
              >
                  <Picker.Item label="Good Standing" value='true' />
                  <Picker.Item label="Bad Standing" value='false' />
@@ -139,7 +144,7 @@ class EditStats extends Component {
               />
             </Item>
           </Form>
-          {this.renderButton()}
+          {this.renderButton(rank)}
         </Content>
       </Container>
     );
@@ -165,7 +170,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { position, goodStanding, dues, communityService, chapters, mixers, brotherhoods, rank, loading } = state.selectedProfile;
+  const { position, goodStanding, dues, communityService, chapters, mixers, brotherhoods, loading } = state.selectedProfile;
   const { organization } = state.auth;
   return (
     {
@@ -175,7 +180,6 @@ const mapStateToProps = (state) => {
       chapters,
       mixers,
       brotherhoods,
-      rank,
       organization,
       goodStanding,
       loading
@@ -191,5 +195,6 @@ export default connect(mapStateToProps, {
   chaptersEdited,
   mixersEdited,
   brotherhoodsEdited,
+  goodStandingEdited,
   saveStats
 })(EditStats);

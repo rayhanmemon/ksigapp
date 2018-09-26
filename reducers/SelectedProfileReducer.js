@@ -6,6 +6,7 @@ import {
   EDIT_CHAPTERS,
   EDIT_MIXERS,
   EDIT_BROTHERHOODS,
+  EDIT_GOOD_STANDING,
   SAVE_NEW_STATS,
   SAVE_NEW_STATS_SUCCESS,
   SAVE_NEW_STATS_FAILED
@@ -21,9 +22,7 @@ const INITIAL_STATE = {
   lastName: '',
   mixers: '',
   position: '',
-  rank: '',
-  goodStanding: false,
-  organization: '',
+  goodStanding: 'true',
   loading: false
 };
 
@@ -43,10 +42,12 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, mixers: action.payload };
     case EDIT_BROTHERHOODS:
       return { ...state, brotherhoods: action.payload };
+    case EDIT_GOOD_STANDING:
+      return { ...state, goodStanding: action.payload };
     case SAVE_NEW_STATS:
       return { ...state, loading: true };
     case SAVE_NEW_STATS_SUCCESS:
-      return { ...state, loading: false };
+      return INITIAL_STATE;
     case SAVE_NEW_STATS_FAILED:
       return { ...state, loading: false };
     default:

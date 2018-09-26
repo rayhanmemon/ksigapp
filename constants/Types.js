@@ -49,3 +49,4 @@ export const EDIT_BROTHERHOODS = 'edit_brotherhoods';
 export const SAVE_NEW_STATS = 'save_new_stats';
 export const SAVE_NEW_STATS_SUCCESS = 'save_new_stats_success';
 export const SAVE_NEW_STATS_FAILED = 'save_new_stats_failed';
+export const EDIT_GOOD_STANDING = 'edit_good_standing';

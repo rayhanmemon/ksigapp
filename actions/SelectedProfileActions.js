@@ -8,6 +8,7 @@ import {
   EDIT_CHAPTERS,
   EDIT_MIXERS,
   EDIT_BROTHERHOODS,
+  EDIT_GOOD_STANDING,
   SAVE_NEW_STATS,
   SAVE_NEW_STATS_SUCCESS,
   SAVE_NEW_STATS_FAILED
@@ -67,11 +68,45 @@ export const brotherhoodsEdited = (text) => {
   };
 };
 
+export const goodStandingEdited = (text) => {
+  return {
+    type: EDIT_GOOD_STANDING,
+    payload: text
+  };
+}
 export const saveStats = (organization, rank, newStats) => {
-  const { position, dues, communityService, chapters, mixers, brotherhoods } = newStats;
+  const { position, goodStanding, dues, communityService, chapters, mixers, brotherhoods } = newStats;
   return (dispatch) => {
     dispatch({ type: SAVE_NEW_STATS });
     const profileRef = firebase.database().ref(`${organization}/profiles/${rank}`);
-    console.log(newStats);
+    //update position
+    if (position !== '') {
+      const listRef = firebase.database().ref(`${organization}/activesList/${rank}`);
+      listRef.child('position').set(position);
+      profileRef.child('position').set(position);
+    }
+    //update GoodStanding
+    profileRef.child('goodStanding').set(goodStanding);
+    //update dues
+    if (!isNaN(dues)) {
+      profileRef.child('dues').set(dues);
+    }
+    //update communityService
+    if (!isNaN(communityService)) {
+      profileRef.child('communityService').set(communityService);
+    }
+    //update chapters
+    if (!isNaN(chapters)) {
+      profileRef.child('chapters').set(chapters);
+    }
+    //update mixers
+    if (!isNaN(mixers)) {
+      profileRef.child('mixers').set(mixers);
+    }
+    //update brotherhoods
+    if (!isNaN(brotherhoods)) {
+      profileRef.child('brotherhoods').set(brotherhoods);
+    }
+    dispatch({ type: SAVE_NEW_STATS_SUCCESS });
   };
 };
