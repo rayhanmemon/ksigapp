@@ -22,9 +22,9 @@ class ActivesScreen extends Component {
   }
 
   onActiveSelect = (name, rank) => {
-    console.log(name, rank);
+    const { admin } = this.props;
     this.props.fetchSelectedProfile(this.props.organization, rank);
-    this.props.navigation.navigate('SelectedProfile', { title: name });
+    this.props.navigation.navigate('SelectedProfile', { title: name, admin });
   }
 
   renderActivesList = () => {
@@ -69,9 +69,9 @@ class ActivesScreen extends Component {
 
 const mapStateToProps = (state) => {
   const { loadingList, error, listData, selectedUserRank } = state.actives;
-  const { organization, rank } = state.auth;
+  const { organization, rank, admin } = state.auth;
   return (
-    { loadingList, error, listData, selectedUserRank, organization, rank }
+    { loadingList, error, listData, selectedUserRank, organization, rank, admin }
   );
 };
 

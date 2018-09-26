@@ -7,7 +7,7 @@ import { emailChanged, passwordChanged, loginUser, resetAuthState, fetchUsersOrg
 class LoginScreen extends Component {
 
   static navigationOptions = {
-    title: 'Welcome',
+    title: 'Sign In',
   };
 
   shouldComponentUpdate(nextProps) {

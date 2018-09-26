@@ -18,7 +18,7 @@ import {
 
 class RegisterChapterScreen extends Component {
   static navigationOptions = {
-    title: 'Register',
+    title: 'Join a Chapter',
   };
 
   shouldComponentUpdate(nextProps) {
@@ -66,11 +66,10 @@ class RegisterChapterScreen extends Component {
         <Content>
           <Card style={{ marginBottom: 10 }}>
             <Text style={styles.cardTitle}>Chapter Name</Text>
-            <Text style={styles.cardSubText}>seperate charactes with a '-'</Text>
             <Form>
               <Item>
                 <Input
-                  placeholder="(ex. Rho-Upsilon)"
+                  placeholder="e.g Omicron-Pi"
                   onChangeText={this.props.regChapterChanged.bind(this)}
                   value={organization}
                 />
@@ -79,7 +78,7 @@ class RegisterChapterScreen extends Component {
               <Text style={styles.cardSubText}>provided by chapter admin</Text>
               <Item>
                 <Input
-                  placeholder="e.g "
+                  placeholder="e.g Omicron-Pi-105517"
                   onChangeText={this.props.regCodeChanged.bind(this)}
                   value={regCode}
                 />

@@ -38,3 +38,14 @@ export const SEND_BUTTON_PRESSED = 'send_button_pressed';
 export const POST_SUCCESS = 'post_success';
 export const REQUEST_FEED_DATA = 'request_feed_data';
 export const REQUEST_FEED_DATA_SUCCESS = 'request_feed_data_success';
+//SelectedProfileReducer Types
+export const TOGGLE_ADMIN_MODE = 'toggle_admin_mode';
+export const EDIT_POSITION = 'edit_position';
+export const EDIT_DUES = 'edit_dues';
+export const EDIT_COMMUNITYSERVICE = 'edit_community_service';
+export const EDIT_CHAPTERS = 'edit_chapters';
+export const EDIT_MIXERS = 'edit_mixers';
+export const EDIT_BROTHERHOODS = 'edit_brotherhoods';
+export const SAVE_NEW_STATS = 'save_new_stats';
+export const SAVE_NEW_STATS_SUCCESS = 'save_new_stats_success';
+export const SAVE_NEW_STATS_FAILED = 'save_new_stats_failed';

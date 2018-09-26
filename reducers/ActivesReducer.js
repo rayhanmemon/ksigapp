@@ -39,17 +39,19 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_SELECTED_PROFILE_SUCCESS:
       return {
         ...state,
-        loadingProfile: false, 
-        SelectedAdmin: action.payload.admin,
-        SelectedBrotherhoods: action.payload.brotherhoods,
-        SelectedChapters: action.payload.chapters,
-        SelectedCommunityService: action.payload.communityService,
-        SelectedDues: action.payload.dues,
-        SelectedFirstName: action.payload.firstName,
-        SelectedLastName: action.payload.lastName,
-        SelectedMixers: action.payload.mixers,
-        SelectedPosition: action.payload.position,
-        SelectedGoodStanding: action.payload.goodStanding, };
+        loadingProfile: false,
+        selectedAdmin: action.payload.admin,
+        selectedBrotherhoods: action.payload.brotherhoods,
+        selectedChapters: action.payload.chapters,
+        selectedCommunityService: action.payload.communityService,
+        selectedDues: action.payload.dues,
+        selectedFirstName: action.payload.firstName,
+        selectedLastName: action.payload.lastName,
+        selectedMixers: action.payload.mixers,
+        selectedPosition: action.payload.position,
+        selectedGoodStanding: action.payload.goodStanding,
+        selectedRank: action.payload.rank
+      };
     default:
       return state;
   }
