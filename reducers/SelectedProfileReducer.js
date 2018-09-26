@@ -1,4 +1,5 @@
 import {
+  INITIALIZE_TOTALS,
   TOGGLE_ADMIN_MODE,
   EDIT_POSITION,
   EDIT_DUES,
@@ -14,6 +15,11 @@ import {
 
 const INITIAL_STATE = {
   adminModeActive: false,
+  totalDues: 0,
+  totalCommunityService: 0,
+  totalChapters: 0,
+  totalMixers: 0,
+  totalBrotherhoods: 0,
   brotherhoods: '',
   chapters: '',
   communityService: '',
@@ -28,6 +34,15 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case INITIALIZE_TOTALS:
+      return {
+        ...state,
+        totalDues: action.payload.totalDues,
+        totalCommunityService: action.payload.totalCommunityService,
+        totalChapters: action.payload.totalChapters,
+        totalMixers: action.payload.totalMixers,
+        totalBrotherhoods: action.payload.totalBrotherhoods,
+      };
     case TOGGLE_ADMIN_MODE:
       return { ...state, adminModeActive: action.payload };
     case EDIT_POSITION:

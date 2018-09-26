@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 import {
+  INITIALIZE_TOTALS,
   TOGGLE_ADMIN_MODE,
   EDIT_POSITION,
   EDIT_DUES,
@@ -13,6 +14,15 @@ import {
   SAVE_NEW_STATS_SUCCESS,
   SAVE_NEW_STATS_FAILED
 } from '../constants/Types';
+
+export const initializeTotals = (organization) => {
+  return (dispatch) => {
+    firebase.database().ref(`${organization}/admin`)
+      .on('value', snapshot => {
+        dispatch({ type: INITIALIZE_TOTALS, payload: snapshot.val() });
+    });
+  };
+};
 
 export const toggleAdminMode = (adminModeActive) => {
   if (adminModeActive) {
@@ -73,7 +83,8 @@ export const goodStandingEdited = (text) => {
     type: EDIT_GOOD_STANDING,
     payload: text
   };
-}
+};
+
 export const saveStats = (organization, rank, newStats) => {
   const { position, goodStanding, dues, communityService, chapters, mixers, brotherhoods } = newStats;
   return (dispatch) => {

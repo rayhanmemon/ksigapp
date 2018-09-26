@@ -18,7 +18,6 @@ class FeedScreen extends Component {
     this.props.fetchFeed(this.props.organization);
   }
 
-
   onSendButtonPress = () => {
     const { postContent, firstName, lastName, rank, organization } = this.props;
     this.props.sendButtonPressed(postContent, firstName, lastName, rank, organization);

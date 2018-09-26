@@ -39,6 +39,7 @@ export const POST_SUCCESS = 'post_success';
 export const REQUEST_FEED_DATA = 'request_feed_data';
 export const REQUEST_FEED_DATA_SUCCESS = 'request_feed_data_success';
 //SelectedProfileReducer Types
+export const INITIALIZE_TOTALS = 'initialize_totals';
 export const TOGGLE_ADMIN_MODE = 'toggle_admin_mode';
 export const EDIT_POSITION = 'edit_position';
 export const EDIT_DUES = 'edit_dues';

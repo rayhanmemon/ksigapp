@@ -17,22 +17,6 @@ import {
 
 class EditStats extends Component {
 
-/*
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selected2: undefined
-    };
-  }
-
-  onValueChange2(value: string) {
-    this.setState({
-      selected2: value
-    });
-  }
-*/
-
   saveButtonPressed(organization, rank) {
     const newStats = {
       position: this.props.position,
@@ -43,7 +27,6 @@ class EditStats extends Component {
       mixers: parseInt(this.props.mixers, 10),
       brotherhoods: parseInt(this.props.brotherhoods, 10)
     };
-    console.log(newStats);
     this.props.saveStats(organization, rank, newStats);
   }
 

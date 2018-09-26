@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { Container, Content, Thumbnail, Text } from 'native-base';
 import Stat from './Stat';
 
-export default class BrotherStats extends Component {
+import { initializeTotals } from '../actions';
+
+class BrotherStats extends Component {
+
   renderStanding(goodStanding) {
     if (goodStanding) {
       return (
@@ -19,12 +23,7 @@ export default class BrotherStats extends Component {
   }
 
   render() {
-    const totalDues = 600;
-    const totalCommunityService = 20;
-    const totalChapters = 12;
-    const totalMixers = 10;
-    const totalBrotherhoods = 6;
-
+    this.props.initializeTotals(this.props.organization);
     const picture = 'https://cdn.images.express.co.uk/img/dynamic/4/590x/LeBron-James-has-until-June-29-to-opt-out-of-his-contract-with-the-Cavaliers-978390.jpg?r=1529715616214';
     const position = this.props.profile.position;
     const goodStanding = this.props.profile.goodStanding;
@@ -33,6 +32,8 @@ export default class BrotherStats extends Component {
     const chapters = this.props.profile.chapters;
     const mixers = this.props.profile.mixers;
     const brotherhoods = this.props.profile.brotherhoods;
+
+    const { totalDues, totalCommunityService, totalChapters, totalMixers, totalBrotherhoods } = this.props;
 
     return (
       <Container>
@@ -106,3 +107,18 @@ const styles = {
     marginTop: 10
   }
 };
+
+const mapStateToProps = (state) => {
+  const { totalDues, totalCommunityService, totalChapters, totalMixers, totalBrotherhoods } = state.selectedProfile;
+  const { organization } = state.auth;
+  return {
+    totalDues,
+    totalCommunityService,
+    totalChapters,
+    totalMixers,
+    totalBrotherhoods,
+    organization
+  };
+};
+
+export default connect(mapStateToProps, { initializeTotals })(BrotherStats);
